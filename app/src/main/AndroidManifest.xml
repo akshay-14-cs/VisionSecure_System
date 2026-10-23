@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/ic_launcher_visionsecure"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_launcher_visionsecure"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/Theme.VS_Project">
+        
+        <activity
+            android:name=".ui.auth.WelcomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name=".ui.auth.GetStartedActivity"
+            android:exported="false" />
+        
+        <activity
+            android:name=".ui.auth.OrgRegistrationActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+            
+        <activity
+            android:name=".ui.auth.FirstTimePasswordActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        
+        <activity android:name=".ui.dashboard.AdminDashboardActivity" />
+        <activity android:name=".ui.dashboard.FacultyDashboardActivity" />
+        <activity android:name=".ui.dashboard.InchargeDashboardActivity" />
+        <activity android:name=".ui.dashboard.InvigilatorDashboardActivity" />
+        <activity android:name=".ui.dashboard.DashboardActivity" />
+        <activity android:name=".ui.dashboard.ExamRegistrationActivity" />
+        <activity android:name=".ui.dashboard.CsvUploadActivity" />
+        <activity android:name=".ui.scanner.FaceScannerActivity" />
+        <activity android:name=".ui.scanner.QrScannerActivity" />
+        
+        <activity
+            android:name=".ui.dashboard.StaffDatabaseActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+            
+        <activity
+            android:name=".ui.dashboard.StudentDatabaseActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+            
+        <activity
+            android:name=".ui.dashboard.TimetableActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.auth.ForgotPasswordActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+            
+        <activity
+            android:name=".ui.dashboard.AnalyticsDashboardActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+            
+        <activity
+            android:name=".ui.dashboard.LiveExamPreCheckActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+            
+        <service android:name=".ui.dashboard.IntruderAlertService" android:exported="false" />
+        
+        <activity
+            android:name=".ui.auth.AddSecurityQuestionsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+            
+    </application>
+
+</manifest>

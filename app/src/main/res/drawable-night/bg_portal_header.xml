@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#2A10B981"
+                android:endColor="#00000000"
+                android:angle="270"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/ic_dots_pattern"
+        android:gravity="top|start"
+        android:top="16dp"
+        android:left="16dp" />
+</layer-list>

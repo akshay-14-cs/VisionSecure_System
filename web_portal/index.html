@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisionSecure - Online Exam Portal</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+
+            --primary: #8c9eff;
+            --secondary: #5c6bc0;
+            --accent: #7986cb;
+            --text-main: #ffffff;
+            --text-muted: #9fa8da;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: radial-gradient(circle at 50% -20%, #282c44 0%, #0a0b10 70%, #050508 100%);
+            color: var(--text-main);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+
+        .glass-container {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(140, 158, 255, 0.02);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 450px;
+            max-height: 100%;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95) translateY(10px);
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        .glass-container.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: scale(1) translateY(0);
+            position: relative;
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: 32px;
+            margin: 0 0 8px 0;
+            background: linear-gradient(90deg, #ffffff, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 32px;
+            font-weight: 300;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-family: 'Outfit', sans-serif;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(140, 158, 255, 0.15), inset 0 2px 5px rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 40px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 18px;
+            user-select: none;
+            transition: color 0.3s;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, var(--secondary), #3949ab);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(92, 107, 192, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(92, 107, 192, 0.4);
+        }
+
+        button:disabled {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.05);
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+
+        .interactive-eye-container {
+            width: 120px;
+            height: 120px;
+            margin: -10px auto 10px auto;
+        }
+
+        #pupilGroup {
+            transition: transform 0.1s ease-out;
+        }
+
+        #eyeLid,
+        #eyeBrow {
+            transition: d 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+
+
+        .lock-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+                text-shadow: 0 0 20px var(--accent);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+
+
+        .success-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            color: #00e676;
+            text-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
+        }
+
+        .exam-info {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .exam-info p {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        .exam-info span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="glass-container active" id="login-section">
+
+        <div class="interactive-eye-container" id="eyeContainer">
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+                <defs>
+
+                    <clipPath id="scleraClip">
+                        <path d="M 10 50 Q 50 10 90 50 Q 50 90 10 50 Z" />
+                    </clipPath>
+                    <radialGradient id="irisGrad" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#8c9eff" />
+                        <stop offset="100%" stop-color="#3949ab" />
+                    </radialGradient>
+                    <filter id="eyeShadow">
+                        <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.4" />
+                    </filter>
+                </defs>
+
+
+                <path d="M 10 50 Q 50 10 90 50 Q 50 90 10 50 Z" fill="#ffffff" filter="url(#eyeShadow)" />
+
+
+                <g clip-path="url(#scleraClip)">
+                    <g id="pupilGroup" transform="translate(0, 0)">
+                        <circle cx="50" cy="50" r="18" fill="url(#irisGrad)" />
+                        <circle cx="50" cy="50" r="8" fill="#050508" />
+
+                        <circle cx="56" cy="44" r="3" fill="#ffffff" opacity="0.9" />
+                    </g>
+                </g>
+
+
+                <path id="eyeLid" d="M 10 50 Q 50 12 90 50 Q 50 10 10 50 Z" fill="#282c44" stroke="#1a1c29"
+                    stroke-width="2" />
+
+
+                <path id="eyeBrow" d="M 20 25 Q 50 15 80 25" fill="none" stroke="#8c9eff" stroke-width="4"
+                    stroke-linecap="round" />
+            </svg>
+        </div>
+
+        <h1>VisionSecure</h1>
+        <p class="subtitle">Next-Generation Exam Portal</p>
+
+        <div class="input-group">
+            <label for="orgId">Organization ID</label>
+            <input type="text" id="orgId" placeholder="e.g. ORG001" value="ORG001" autocomplete="off">
+        </div>
+
+        <div class="input-group">
+            <label for="studentId">Student ID</label>
+            <input type="text" id="studentId" placeholder="Enter your Student ID" autocomplete="off">
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" autocomplete="off">
+            <span class="password-toggle" onclick="togglePassword()">👁️</span>
+        </div>
+
+        <div class="input-group">
+            <label for="subjectCode">Subject Code</label>
+            <input type="text" id="subjectCode" placeholder="e.g. CS101" autocomplete="off">
+        </div>
+
+        <button id="btnLogin" onclick="initiateLogin()">Verify Credentials</button>
+        <p id="loginError" style="color: var(--accent); margin-top: 16px; display: none; font-weight: 600;"></p>
+    </div>
+
+
+    <div class="glass-container" id="qr-section">
+        <div class="lock-icon">🔒</div>
+        <h1>Terminal Locked</h1>
+        <p class="subtitle" style="color: var(--accent); font-weight: 600;">Awaiting Biometric Verification</p>
+
+        <marquee
+            style="color: var(--accent); font-size: 18px; font-weight: bold; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; margin: 30px 0;">
+            Notice: Face is not verified</marquee>
+
+        <p class="status-message" style="color: var(--text-muted); font-size: 14px; margin-top: 10px;">
+            Please scan your face using the mobile app to proceed.
+        </p>
+    </div>
+
+
+    <div class="glass-container" id="exam-section" style="max-width: 600px;">
+        <div class="success-icon">🔓</div>
+        <h1>Identity Verified</h1>
+        <p class="subtitle" style="color: #00e676; font-weight: 600;">Terminal Unlocked Successfully</p>
+
+        <div class="exam-info">
+            <p>Student ID: <span id="examStudentDisplay">--</span></p>
+            <p>Subject Code: <span id="examSubjectDisplay">--</span></p>
+            <p style="margin-top: 16px; font-size: 14px; color: var(--text-muted);">
+                <i>Your identity has been cryptographically verified by the Invigilator. You may now begin the
+                    examination. Good luck!</i>
+            </p>
+        </div>
+
+        <button disabled style="background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5);">Start Exam</button>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+
+        let isPasswordFocused = false;
+
+        function togglePassword() {
+            const pwd = document.getElementById('password');
+            const toggle = document.querySelector('.password-toggle');
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                toggle.textContent = '🙈';
+                if (isPasswordFocused) {
+                    eyeLid.setAttribute('d', pathOpen);
+                    eyeBrow.setAttribute('d', browNormal);
+                }
+            } else {
+                pwd.type = 'password';
+                toggle.textContent = '👁️';
+                if (isPasswordFocused) {
+                    eyeLid.setAttribute('d', pathClosed);
+                    eyeBrow.setAttribute('d', browClosed);
+                }
+            }
+        }
+
+
+        const pupilGroup = document.getElementById('pupilGroup');
+        const eyeLid = document.getElementById('eyeLid');
+        const eyeBrow = document.getElementById('eyeBrow');
+        const inputs = document.querySelectorAll('.input-group input');
+
+        const pathOpen = "M 10 50 Q 50 12 90 50 Q 50 10 10 50 Z";
+        const pathClosed = "M 10 50 Q 50 90 90 50 Q 50 10 10 50 Z";
+
+        const browNormal = "M 20 25 Q 50 15 80 25";
+        const browClosed = "M 20 28 Q 50 18 80 28";
+        const browAngry = "M 20 15 Q 50 30 80 15";
+
+        let isBlinking = false;
+
+
+        function blink() {
+
+            const isPasswordHidden = document.getElementById('password').type === 'password';
+            if (isBlinking || (isPasswordFocused && isPasswordHidden)) {
+                setTimeout(blink, 3000 + Math.random() * 3000);
+                return;
+            }
+
+            isBlinking = true;
+            eyeLid.setAttribute('d', pathClosed);
+            eyeBrow.setAttribute('d', browClosed);
+            setTimeout(() => {
+
+                if (!(isPasswordFocused && document.getElementById('password').type === 'password')) {
+                    eyeLid.setAttribute('d', pathOpen);
+                    eyeBrow.setAttribute('d', browNormal);
+                }
+                isBlinking = false;
+            }, 150);
+
+
+            setTimeout(blink, 3000 + Math.random() * 3000);
+        }
+
+
+        setTimeout(blink, 2000);
+
+
+        document.addEventListener('mousemove', (e) => {
+            const eyeRect = document.getElementById('eyeContainer').getBoundingClientRect();
+            const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+            const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+
+            const dx = e.clientX - eyeCenterX;
+            const dy = e.clientY - eyeCenterY;
+
+            const angle = Math.atan2(dy, dx);
+            const dist = Math.min(Math.hypot(dx, dy) / 30, 8);
+
+            const moveX = Math.cos(angle) * dist;
+            const moveY = Math.sin(angle) * dist;
+
+            pupilGroup.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+
+
+        inputs.forEach((input, index) => {
+            input.addEventListener('focus', () => {
+
+                if (input.id === 'password') {
+                    isPasswordFocused = true;
+                    if (input.type === 'password') {
+                        eyeLid.setAttribute('d', pathClosed);
+                        eyeBrow.setAttribute('d', browClosed);
+                    }
+                }
+
+
+                const offsets = [
+                    { x: -4, y: 3 },
+                    { x: -2, y: 5 },
+                    { x: 0, y: 0 },
+                    { x: 4, y: 7 }
+                ];
+                const off = offsets[index] || { x: 0, y: 5 };
+                pupilGroup.style.transform = `translate(${off.x}px, ${off.y}px)`;
+            });
+
+
+            if (input.id === 'password') {
+                input.addEventListener('blur', () => {
+                    isPasswordFocused = false;
+                    eyeLid.setAttribute('d', pathOpen);
+                    eyeBrow.setAttribute('d', browNormal);
+                });
+            }
+        });
+
+
+        window.shakeEye = function () {
+            const original = pupilGroup.style.transform;
+            pupilGroup.style.transition = 'transform 0.05s ease-in-out';
+            eyeBrow.setAttribute('d', browAngry);
+
+            setTimeout(() => pupilGroup.style.transform = 'translate(-8px, 0)', 0);
+            setTimeout(() => pupilGroup.style.transform = 'translate(8px, 0)', 100);
+            setTimeout(() => pupilGroup.style.transform = 'translate(-6px, 0)', 200);
+            setTimeout(() => pupilGroup.style.transform = 'translate(6px, 0)', 300);
+            setTimeout(() => {
+                pupilGroup.style.transform = original;
+                pupilGroup.style.transition = 'transform 0.1s ease-out';
+                eyeBrow.setAttribute('d', browNormal);
+            }, 600);
+        };
+
+    </script>
+</body>
+
+</html>

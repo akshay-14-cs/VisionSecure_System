@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#0F172A">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#1E293B"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="Faculty &amp; Staff Database"
+        app:titleTextColor="@android:color/white" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="horizontal">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="vertical">
+
+            <TableLayout
+                android:id="@+id/tableStaff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:stretchColumns="*">
+
+                
+                <TableRow
+                    android:background="#334155"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <TextView
+                        android:text="Staff ID"
+                        android:textColor="#F8FAFC"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:padding="10dp"
+                        android:minWidth="120dp"/>
+
+                    <TextView
+                        android:text="Name"
+                        android:textColor="#F8FAFC"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:padding="10dp"
+                        android:minWidth="160dp"/>
+
+                    <TextView
+                        android:text="Department"
+                        android:textColor="#F8FAFC"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:padding="10dp"
+                        android:minWidth="150dp"/>
+
+                    <TextView
+                        android:text="Role"
+                        android:textColor="#F8FAFC"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:padding="10dp"
+                        android:minWidth="120dp"/>
+
+                    <TextView
+                        android:text="Action"
+                        android:textColor="#F8FAFC"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:padding="10dp"
+                        android:minWidth="130dp"/>
+                </TableRow>
+
+                
+
+            </TableLayout>
+        </ScrollView>
+    </HorizontalScrollView>
+</LinearLayout>

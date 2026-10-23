@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <color name="backgroundColor">#0A0B10</color> 
+    <color name="surfaceColor">#1A1C29</color> 
+    <color name="glassyCardBg">#0AFFFFFF</color>
+    <color name="glassyCardStroke">#1AFFFFFF</color>
+    
+    <color name="textPrimary">#F8FAFC</color> 
+    <color name="textSecondary">#94A3B8</color> 
+    
+    <color name="accentColor">#22D3EE</color> 
+</resources>

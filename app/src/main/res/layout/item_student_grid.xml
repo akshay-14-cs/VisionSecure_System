@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvStudent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#1A000000"
+    app:cardBackgroundColor="@color/surfaceColor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@android:drawable/ic_menu_myplaces"
+            android:background="@drawable/bg_glow"
+            app:tint="@color/primaryColor"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tvStudentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Student Name"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/textPrimary" />
+
+        <TextView
+            android:id="@+id/tvStudentId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ID: 123456"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:textColor="@color/textSecondary"
+            android:layout_marginBottom="8dp"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipBacklogs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Backlogs: 0"
+            android:textSize="10sp"
+            app:chipBackgroundColor="@color/backgroundColor"
+            android:textColor="@color/textSecondary" />
+
+        <TextView
+            android:id="@+id/tvDepartment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Department"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/textSecondary"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/tvCourses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Courses"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/textSecondary"
+            android:layout_marginTop="4dp" />
+
+        <LinearLayout
+            android:id="@+id/llBacklogCourses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="6dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvBacklogCourses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Backlog Courses"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:textColor="@android:color/holo_red_dark" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnViewImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Image"
+            android:textSize="10sp"
+            android:layout_marginTop="8dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            app:icon="@android:drawable/ic_menu_camera" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

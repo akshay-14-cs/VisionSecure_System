@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_drawer_home"
+            android:icon="@android:drawable/ic_menu_today"
+            android:title="Dashboard Home" />
+    </group>
+
+    <item android:title="Upload Workspace Data">
+        <menu>
+            <item
+                android:id="@+id/nav_upload_students"
+                android:icon="@android:drawable/ic_menu_upload"
+                android:title="Upload Students CSV" />
+            <item
+                android:id="@+id/nav_upload_staff"
+                android:icon="@android:drawable/ic_menu_upload"
+                android:title="Upload Staff CSV" />
+            <item
+                android:id="@+id/nav_upload_timetable"
+                android:icon="@android:drawable/ic_menu_upload"
+                android:title="Upload Timetable CSV" />
+        </menu>
+    </item>
+
+    <item android:title="View Database">
+        <menu>
+            <item
+                android:id="@+id/nav_db_students"
+                android:icon="@android:drawable/ic_menu_view"
+                android:title="Students Database" />
+            <item
+                android:id="@+id/nav_db_staff"
+                android:icon="@android:drawable/ic_menu_view"
+                android:title="Staff Database" />
+            <item
+                android:id="@+id/nav_db_timetable"
+                android:icon="@android:drawable/ic_menu_view"
+                android:title="Timetables" />
+        </menu>
+    </item>
+
+    <item android:title="Analytics &amp; Security">
+        <menu>
+            <item
+                android:id="@+id/nav_analytics_registrations"
+                android:icon="@android:drawable/ic_menu_sort_by_size"
+                android:title="Exam Registrations" />
+            <item
+                android:id="@+id/nav_analytics_biometrics"
+                android:icon="@android:drawable/ic_menu_camera"
+                android:title="Biometrics Status" />
+            <item
+                android:id="@+id/nav_analytics_intruders"
+                android:icon="@android:drawable/ic_dialog_alert"
+                android:title="Intruder Alerts" />
+        </menu>
+    </item>
+
+    <item android:title="Account">
+        <menu>
+            <item
+                android:id="@+id/nav_drawer_logout"
+                android:icon="@android:drawable/ic_lock_power_off"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+</menu>

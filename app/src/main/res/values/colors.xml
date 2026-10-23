@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <color name="primaryColor">#2563EB</color> 
+    <color name="primaryLightColor">#4F46E5</color> 
+    <color name="primaryDarkColor">#7C3AED</color> 
+    
+    <color name="secondaryColor">#A78BFA</color> 
+    <color name="accentColor">#38BDF8</color> 
+    <color name="dangerColor">#EF4444</color>
+    
+    
+    <color name="backgroundColor">#F0F4F8</color> 
+    <color name="surfaceColor">#FFFFFF</color> 
+    <color name="glassyCardBg">#0A000000</color>
+    <color name="glassyCardStroke">#1A000000</color>
+    
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <color name="textPrimary">#0F172A</color> 
+    <color name="textSecondary">#64748B</color> 
+</resources>
